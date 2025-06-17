@@ -1,0 +1,616 @@
+/* Court Coder - Main CSS File */
+
+/* ========== GLOBAL STYLES ========== */
+
+:root {
+    /* Color palette */
+    --primary-color: #3e64ff;
+    --primary-dark: #2c4fc1;
+    --secondary-color: #ff6b6b;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    
+    /* Basketball colors */
+    --court-color: #ffdfc4;
+    --court-lines: #8b4513;
+    --offense-color: #e63946;
+    --defense-color: #1d3557;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    /* Typography */
+    --font-primary: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+    --font-secondary: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Other variables */
+    --border-radius: 4px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    --shadow-md: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    --shadow-lg: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: var(--font-primary);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--gray-800);
+    background-color: var(--gray-100);
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* ========== TYPOGRAPHY ========== */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--gray-900);
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.25rem; margin-bottom: var(--spacing-sm); }
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+/* ========== BUTTONS AND CONTROLS ========== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    background-color: var(--gray-200);
+    color: var(--gray-800);
+    border: none;
+    border-radius: var(--border-radius);
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    background-color: var(--gray-300);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn i {
+    margin-right: 0.5rem;
+}
+
+.btn.highlight {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn.highlight:hover {
+    background-color: var(--primary-dark);
+}
+
+.tool-btn {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--gray-200);
+    color: var(--gray-700);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    margin-right: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.tool-btn:hover {
+    background-color: var(--gray-300);
+}
+
+.tool-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+input[type="text"], 
+input[type="number"],
+select,
+textarea {
+    padding: 0.5rem;
+    border: 1px solid var(--gray-400);
+    border-radius: var(--border-radius);
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    transition: var(--transition);
+    width: 100%;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(62, 100, 255, 0.2);
+}
+
+/* ========== LAYOUT ========== */
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: white;
+    box-shadow: var(--shadow-sm);
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    font-size: 1.5rem;
+    color: var(--offense-color);
+    margin-right: var(--spacing-sm);
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.main-nav {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.user-controls {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.app-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.tools-panel {
+    width: 250px;
+    background-color: white;
+    box-shadow: var(--shadow-sm);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--gray-300);
+}
+
+.court-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.animation-panel {
+    width: 300px;
+    background-color: white;
+    box-shadow: var(--shadow-sm);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--gray-300);
+}
+
+.panel-section {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--gray-300);
+}
+
+.panel-section h3 {
+    margin-bottom: var(--spacing-md);
+    color: var(--gray-700);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ========== COURT STYLES ========== */
+
+.court-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--gray-300);
+    background-color: white;
+}
+
+.play-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    width: auto;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius);
+}
+
+.play-title:hover {
+    background-color: var(--gray-200);
+}
+
+.play-title:focus {
+    background-color: white;
+    box-shadow: none;
+    border: 1px solid var(--gray-300);
+}
+
+.court-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.court-viewport {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#court-canvas {
+    background-color: var(--court-color);
+    box-shadow: var(--shadow-md);
+}
+
+.court-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--gray-600);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+}
+
+.playback-controls {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: white;
+    border-top: 1px solid var(--gray-300);
+    gap: var(--spacing-sm);
+}
+
+.timeline-slider {
+    flex: 1;
+    margin: 0 var(--spacing-md);
+}
+
+.play-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.play-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* ========== PLAYER MARKERS ========== */
+
+.player-markers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.player-marker {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    cursor: grab;
+    user-select: none;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.player-marker.offense {
+    background-color: var(--offense-color);
+    color: white;
+}
+
+.player-marker.defense {
+    background-color: var(--defense-color);
+    color: white;
+}
+
+.player-marker:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+}
+
+.player-marker:active {
+    cursor: grabbing;
+}
+
+/* ========== ANIMATION TIMELINE ========== */
+
+.timeline-container {
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.timeline-track {
+    display: flex;
+    height: 30px;
+    border-bottom: 1px solid var(--gray-300);
+}
+
+.timeline-track:last-child {
+    border-bottom: none;
+}
+
+.timeline-label {
+    width: 80px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--gray-200);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--gray-300);
+}
+
+.timeline-events {
+    flex: 1;
+    position: relative;
+    background-color: white;
+    background-image: linear-gradient(90deg, var(--gray-200) 1px, transparent 1px);
+    background-size: 20px 100%;
+}
+
+/* ========== MODAL STYLES ========== */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--gray-300);
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--gray-600);
+}
+
+.modal-body {
+    padding: var(--spacing-md);
+}
+
+.modal-footer {
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--gray-300);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+}
+
+.modal-options {
+    margin: var(--spacing-md) 0;
+}
+
+.modal-options label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* ========== WELCOME SCREEN ========== */
+
+.welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.welcome-content {
+    background-color: white;
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 800px;
+    padding: var(--spacing-xl);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.welcome-content h2 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.welcome-content p {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-lg);
+    color: var(--gray-700);
+}
+
+.welcome-features {
+    display: flex;
+    justify-content: space-between;
+    margin: var(--spacing-xl) 0;
+}
+
+.feature {
+    flex: 1;
+    padding: var(--spacing-md);
+}
+
+.feature i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+}
+
+.feature h3 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.feature p {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+}
+
+.welcome-buttons {
+    margin: var(--spacing-xl) 0 var(--spacing-lg);
+}
+
+.welcome-buttons .btn {
+    margin: 0 var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-lg);
+}
+
+.welcome-footer {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+}
+
+/* ========== RESPONSIVE STYLES ========== */
+
+@media (max-width: 1200px) {
+    .animation-panel {
+        width: 250px;
+    }
+}
+
+@media (max-width: 992px) {
+    .app-main {
+        flex-direction: column;
+    }
+    
+    .tools-panel, .animation-panel {
+        width: 100%;
+        max-height: 30vh;
+        border: none;
+    }
+    
+    .tools-panel {
+        border-bottom: 1px solid var(--gray-300);
+    }
+    
+    .animation-panel {
+        border-top: 1px solid var(--gray-300);
+    }
+    
+    .welcome-features {
+        flex-direction: column;
+    }
+    
+    .feature {
+        margin-bottom: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    .main-nav {
+        display: none;
+    }
+    
+    .app-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .logo h1 {
+        font-size: 1.2rem;
+    }
+}
