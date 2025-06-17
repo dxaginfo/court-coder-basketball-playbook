@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Court Coder - Basketball Playbook Animator</title>
+    <meta name="description" content="An AI-powered basketball playbook animation tool that allows coaches to easily create and visualize plays">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Vue.js development version -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header class="app-header">
+            <div class="logo">
+                <i class="fas fa-basketball-ball"></i>
+                <h1>Court Coder</h1>
+            </div>
+            <nav class="main-nav">
+                <button class="btn" title="Create a new play"><i class="fas fa-plus"></i> New Play</button>
+                <button class="btn" title="Open the play library"><i class="fas fa-folder-open"></i> Library</button>
+                <button class="btn" title="Save current play"><i class="fas fa-save"></i> Save</button>
+                <button class="btn" title="Export as video or image"><i class="fas fa-file-export"></i> Export</button>
+                <button class="btn highlight" title="Use AI to enhance your play"><i class="fas fa-magic"></i> AI Enhance</button>
+            </nav>
+            <div class="user-controls">
+                <button class="btn" title="Help and documentation"><i class="fas fa-question-circle"></i></button>
+                <button class="btn" title="Settings"><i class="fas fa-cog"></i></button>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <aside class="tools-panel">
+                <div class="panel-section">
+                    <h3>Players</h3>
+                    <div class="player-markers">
+                        <!-- Offensive players -->
+                        <div class="player-marker offense" draggable="true" data-player="1">1</div>
+                        <div class="player-marker offense" draggable="true" data-player="2">2</div>
+                        <div class="player-marker offense" draggable="true" data-player="3">3</div>
+                        <div class="player-marker offense" draggable="true" data-player="4">4</div>
+                        <div class="player-marker offense" draggable="true" data-player="5">5</div>
+                        
+                        <!-- Defensive players -->
+                        <div class="player-marker defense" draggable="true" data-player="X1">X1</div>
+                        <div class="player-marker defense" draggable="true" data-player="X2">X2</div>
+                        <div class="player-marker defense" draggable="true" data-player="X3">X3</div>
+                        <div class="player-marker defense" draggable="true" data-player="X4">X4</div>
+                        <div class="player-marker defense" draggable="true" data-player="X5">X5</div>
+                    </div>
+                </div>
+                
+                <div class="panel-section">
+                    <h3>Tools</h3>
+                    <div class="tools-buttons">
+                        <button class="tool-btn" title="Select and move objects"><i class="fas fa-mouse-pointer"></i></button>
+                        <button class="tool-btn" title="Draw movement paths"><i class="fas fa-pen"></i></button>
+                        <button class="tool-btn" title="Add passing lines"><i class="fas fa-exchange-alt"></i></button>
+                        <button class="tool-btn" title="Add screens"><i class="fas fa-user-shield"></i></button>
+                        <button class="tool-btn" title="Add text annotations"><i class="fas fa-font"></i></button>
+                        <button class="tool-btn" title="Add the ball"><i class="fas fa-basketball-ball"></i></button>
+                    </div>
+                </div>
+                
+                <div class="panel-section">
+                    <h3>Properties</h3>
+                    <div class="properties-panel">
+                        <p class="no-selection-message">Select an object to view its properties</p>
+                        <!-- Properties will be shown here when an object is selected -->
+                    </div>
+                </div>
+            </aside>
+
+            <section class="court-container">
+                <div class="court-header">
+                    <input type="text" class="play-title" value="Untitled Play" placeholder="Play Title">
+                    <div class="court-controls">
+                        <select class="court-type-select">
+                            <option value="full">Full Court</option>
+                            <option value="half" selected>Half Court</option>
+                            <option value="zone">Zone View</option>
+                        </select>
+                        <button class="btn" title="Zoom in"><i class="fas fa-search-plus"></i></button>
+                        <button class="btn" title="Zoom out"><i class="fas fa-search-minus"></i></button>
+                        <button class="btn" title="Reset view"><i class="fas fa-expand"></i></button>
+                    </div>
+                </div>
+                
+                <div class="court-viewport">
+                    <!-- Canvas for the basketball court will be created here by JavaScript -->
+                    <canvas id="court-canvas" width="800" height="600">
+                        Your browser does not support the HTML5 Canvas. Please upgrade your browser.
+                    </canvas>
+                    
+                    <!-- Placeholder message for initial load -->
+                    <div class="court-placeholder">
+                        <p>Drag players onto the court to get started</p>
+                        <p>or use the AI Enhance button for suggestions</p>
+                    </div>
+                </div>
+                
+                <div class="playback-controls">
+                    <button class="btn" title="Go to start"><i class="fas fa-step-backward"></i></button>
+                    <button class="btn play-btn" title="Play/Pause"><i class="fas fa-play"></i></button>
+                    <button class="btn" title="Go to end"><i class="fas fa-step-forward"></i></button>
+                    <input type="range" class="timeline-slider" min="0" max="100" value="0">
+                    <select class="playback-speed">
+                        <option value="0.5">0.5x</option>
+                        <option value="1" selected>1x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+                </div>
+            </section>
+            
+            <aside class="animation-panel">
+                <div class="panel-section">
+                    <h3>Animation Timeline</h3>
+                    <div class="timeline-container">
+                        <!-- Timeline tracks will be generated here by JavaScript -->
+                        <div class="timeline-track">
+                            <div class="timeline-label">Player 1</div>
+                            <div class="timeline-events">
+                                <!-- Events will be added here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel-section">
+                    <h3>AI Suggestions</h3>
+                    <div class="ai-suggestions">
+                        <p class="ai-prompt-placeholder">Click "AI Enhance" to get suggestions for improving your play</p>
+                        <!-- AI suggestions will appear here -->
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- AI Enhancement Modal -->
+        <div class="modal" id="ai-modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>AI Play Enhancement</h2>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Describe what you want to do with this play, and our AI will help enhance it.</p>
+                    <textarea placeholder="Example: 'Create a pick and roll with player 4 screening for player 1, then rolling to the basket for a pass and layup.'" rows="4"></textarea>
+                    
+                    <div class="modal-options">
+                        <label>
+                            <input type="checkbox" checked> Optimize player movements
+                        </label>
+                        <label>
+                            <input type="checkbox" checked> Adjust timing and speed
+                        </label>
+                        <label>
+                            <input type="checkbox" checked> Generate play description
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn">Cancel</button>
+                    <button class="btn highlight">Apply AI Enhancement</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome screen for first-time users -->
+        <div class="welcome-screen">
+            <div class="welcome-content">
+                <h2>Welcome to Court Coder!</h2>
+                <p>The AI-powered basketball playbook animator</p>
+                
+                <div class="welcome-features">
+                    <div class="feature">
+                        <i class="fas fa-pen"></i>
+                        <h3>Easy Drawing</h3>
+                        <p>Drag and drop players, draw paths with simple clicks</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-magic"></i>
+                        <h3>AI Enhancement</h3>
+                        <p>Let AI optimize your plays and suggest improvements</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-share-alt"></i>
+                        <h3>Easy Sharing</h3>
+                        <p>Export as videos, GIFs, or images to share with your team</p>
+                    </div>
+                </div>
+                
+                <div class="welcome-buttons">
+                    <button class="btn highlight">Start a New Play</button>
+                    <button class="btn">Watch Tutorial</button>
+                </div>
+                
+                <div class="welcome-footer">
+                    <label>
+                        <input type="checkbox"> Don't show this again
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/court.js"></script>
+    <script src="js/players.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/ai.js"></script>
+</body>
+</html>
